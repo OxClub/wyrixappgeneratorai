@@ -1,0 +1,20 @@
+name: Package extension
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip extension
+        run: |
+          zip -r extension.zip . -x ".git/*" ".github/*" "README.md"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extension-zip
+          path: extension.zip
